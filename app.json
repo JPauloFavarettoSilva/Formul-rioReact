@@ -1,0 +1,126 @@
+import React from 'react';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+
+const PeripheralForm = () => {
+  const { control, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = data => {
+    console.log(data);
+    // Aqui você pode fazer o que desejar com os dados do formulário, como enviar para uma API
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Cadastro de Periféricos de Celular</Text>
+      
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Nome do Periférico</Text>
+        <Controller
+          control={control}
+          rules={{ required: "Este campo é obrigatório" }}
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Digite o nome"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="name"
+        />
+        {errors.name && <Text style={styles.errorText}>{errors.name.message}</Text>}
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Marca</Text>
+        <Controller
+          control={control}
+          rules={{ required: "Este campo é obrigatório" }}
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Digite a marca"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="brand"
+        />
+        {errors.brand && <Text style={styles.errorText}>{errors.brand.message}</Text>}
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Tipo de Periférico</Text>
+        <Controller
+          control={control}
+          rules={{ required: "Este campo é obrigatório" }}
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Digite o tipo"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="type"
+        />
+        {errors.type && <Text style={styles.errorText}>{errors.type.message}</Text>}
+      </View>
+
+      <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+        <Text style={styles.buttonText}>Cadastrar</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#121212', // Cor de fundo preto
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  inputContainer: {
+    marginBottom: 15,
+  },
+  label: {
+    color: '#B0B0B0', // Cor cinza para o label
+    fontSize: 16,
+  },
+  input: {
+    height: 40,
+    borderColor: '#1A2B3D', // Azul escuro para borda
+    borderWidth: 1,
+    borderRadius: 5,
+    color: '#fff', // Texto branco
+    paddingHorizontal: 10,
+    marginTop: 5,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+  },
+  button: {
+    backgroundColor: '#1A2B3D', // Azul escuro para o botão
+    paddingVertical: 12,
+    borderRadius: 5,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
+
+export default PeripheralForm;
